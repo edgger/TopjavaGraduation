@@ -1,6 +1,6 @@
-package guru.optimal.topjava.graduation.service;
+package com.github.edgarzed.topjavagraduation.service;
 
-import guru.optimal.topjava.graduation.model.User;
+import com.github.edgarzed.topjavagraduation.model.User;
 import javassist.NotFoundException;
 
 import java.util.List;

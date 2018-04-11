@@ -1,4 +1,4 @@
-package guru.optimal.topjava.graduation.model;
+package com.github.edgarzed.topjavagraduation.model;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;

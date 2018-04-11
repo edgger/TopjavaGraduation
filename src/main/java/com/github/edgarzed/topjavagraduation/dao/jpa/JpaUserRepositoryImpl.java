@@ -1,7 +1,7 @@
-package guru.optimal.topjava.graduation.dao.jpa;
+package com.github.edgarzed.topjavagraduation.dao.jpa;
 
-import guru.optimal.topjava.graduation.dao.UserDAO;
-import guru.optimal.topjava.graduation.model.User;
+import com.github.edgarzed.topjavagraduation.dao.UserDAO;
+import com.github.edgarzed.topjavagraduation.model.User;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 

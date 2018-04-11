@@ -1,6 +1,6 @@
-package guru.optimal.topjava.graduation.dao;
+package com.github.edgarzed.topjavagraduation.dao;
 
-import guru.optimal.topjava.graduation.model.User;
+import com.github.edgarzed.topjavagraduation.model.User;
 
 import java.util.List;
 

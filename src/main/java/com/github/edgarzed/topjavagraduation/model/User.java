@@ -1,4 +1,4 @@
-package guru.optimal.topjava.graduation.model;
+package com.github.edgarzed.topjavagraduation.model;
 
 import javax.persistence.*;
 import java.util.Set;

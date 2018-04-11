@@ -1,7 +1,7 @@
-package guru.optimal.topjava.graduation.util;
+package com.github.edgarzed.topjavagraduation.util;
 
 
-import guru.optimal.topjava.graduation.model.AbstractBaseEntity;
+import com.github.edgarzed.topjavagraduation.model.AbstractBaseEntity;
 import javassist.NotFoundException;
 
 public class ValidationUtil {

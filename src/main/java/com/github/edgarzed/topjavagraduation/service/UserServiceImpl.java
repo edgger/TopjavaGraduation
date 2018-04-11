@@ -1,7 +1,7 @@
-package guru.optimal.topjava.graduation.service;
+package com.github.edgarzed.topjavagraduation.service;
 
-import guru.optimal.topjava.graduation.dao.UserDAO;
-import guru.optimal.topjava.graduation.model.User;
+import com.github.edgarzed.topjavagraduation.dao.UserDAO;
+import com.github.edgarzed.topjavagraduation.model.User;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -9,7 +9,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
-import static guru.optimal.topjava.graduation.util.ValidationUtil.checkNotFoundWithId;
+import static com.github.edgarzed.topjavagraduation.util.ValidationUtil.checkNotFoundWithId;
 
 
 @Service

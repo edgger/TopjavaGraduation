@@ -4,6 +4,9 @@ import com.github.edgarzed.topjavagraduation.dao.UserDAO;
 import com.github.edgarzed.topjavagraduation.model.User;
 import javassist.NotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.util.Assert;
 
@@ -13,7 +16,7 @@ import static com.github.edgarzed.topjavagraduation.util.ValidationUtil.checkNot
 
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserServiceImpl implements UserService, UserDetailsService {
 
     private final UserDAO repository;
 
@@ -38,7 +41,6 @@ public class UserServiceImpl implements UserService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-
     @Override
     public List<User> getAll() {
         return repository.getAll();
@@ -48,5 +50,11 @@ public class UserServiceImpl implements UserService {
     public void update(User user) throws NotFoundException {
         Assert.notNull(user, "user must not be null");
         checkNotFoundWithId(repository.save(user), user.getId());
+    }
+
+    //TODO: Security loadUserByUsername
+    @Override
+    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+        return null;
     }
 }

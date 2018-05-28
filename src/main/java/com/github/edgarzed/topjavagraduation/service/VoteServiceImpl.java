@@ -1,6 +1,10 @@
 package com.github.edgarzed.topjavagraduation.service;
 
+import com.github.edgarzed.topjavagraduation.dao.VoteDAO;
+import com.github.edgarzed.topjavagraduation.model.Restaurant;
+import com.github.edgarzed.topjavagraduation.model.User;
 import com.github.edgarzed.topjavagraduation.model.Vote;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -8,23 +12,37 @@ import java.util.List;
 
 @Service
 public class VoteServiceImpl implements VoteService {
-    @Override
-    public Vote create(Vote vote) {
-        return null;
+    private final VoteDAO voteDAO;
+    private final RestaurantService restaurantService;
+
+    @Autowired
+    public VoteServiceImpl(VoteDAO voteDAO, RestaurantService restaurantService) {
+        this.voteDAO = voteDAO;
+        this.restaurantService = restaurantService;
     }
 
     @Override
-    public Vote get(int id) {
-        return null;
+    public boolean save(User user, int restaurantId, LocalDate date) {
+        Restaurant restaurant = restaurantService.get(restaurantId);
+        Vote vote;
+        List<Vote> todaysUserVoice = getFiltered(user, date, date);
+        if (todaysUserVoice.size() > 0) {
+            vote = todaysUserVoice.get(0);
+            vote.setRestaurant(restaurant);
+        } else {
+            vote = new Vote(user, restaurant, date);
+        }
+        voteDAO.save(vote);
+        return false;
     }
 
     @Override
     public List<Vote> getAll() {
-        return null;
+        return voteDAO.getAll();
     }
 
     @Override
-    public List<Vote> getBetween(LocalDate startDate, LocalDate endDate) {
-        return null;
+    public List<Vote> getFiltered(User user, LocalDate startDate, LocalDate endDate) {
+        return voteDAO.getFiltered(user, startDate, endDate);
     }
 }

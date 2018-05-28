@@ -1,4 +1,4 @@
-package com.github.edgarzed.topjavagraduation.service;
+package com.github.edgarzed.topjavagraduation.dao;
 
 import com.github.edgarzed.topjavagraduation.model.User;
 import com.github.edgarzed.topjavagraduation.model.Vote;
@@ -6,9 +6,9 @@ import com.github.edgarzed.topjavagraduation.model.Vote;
 import java.time.LocalDate;
 import java.util.List;
 
-public interface VoteService {
+public interface VoteDAO {
 
-    boolean save(User user, int restaurantId, LocalDate date);
+    Vote save(Vote vote);
 
     List<Vote> getAll();
 

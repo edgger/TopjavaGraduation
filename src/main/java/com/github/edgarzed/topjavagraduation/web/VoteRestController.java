@@ -42,7 +42,7 @@ public class VoteRestController {
             return ResponseEntity.status(HttpStatus.LOCKED).build();
         }
         List<Vote> between = voteService.getFiltered(user, nowDateTime.toLocalDate(), nowDateTime.toLocalDate());
-        if (voteService.save(user, restaurantId, nowDateTime.toLocalDate())) {
+        if (voteService.save(user, restaurantId, nowDateTime.toLocalDate())!=null) {
             if (between.size() == 0) {
                 return ResponseEntity.status(HttpStatus.CREATED).build();
             } else {

@@ -7,7 +7,6 @@
     <context:component-scan base-package="com.github.edgarzed.**.service"/>
 
     <!-- Include -->
-    <import resource="spring-db.xml"/>
     <import resource="spring-security.xml"/>
 
 </beans>

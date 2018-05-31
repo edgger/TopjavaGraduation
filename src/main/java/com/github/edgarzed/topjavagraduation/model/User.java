@@ -1,6 +1,11 @@
 package com.github.edgarzed.topjavagraduation.model;
 
+import org.springframework.util.CollectionUtils;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Set;
 
 @Entity
@@ -22,17 +27,19 @@ public class User extends AbstractNamedEntity {
     public User() {
     }
 
-    public User(String email, String password, Set<Role> roles) {
-        this.email = email;
-        this.password = password;
-        this.roles = roles;
+    public User(User u) {
+        this(u.getId(), u.getName(), u.getEmail(), u.getPassword(), u.getRoles());
     }
 
-    public User(Integer id, String name, String email, String password, Set<Role> roles) {
+    public User(Integer id, String name, String email, String password, Role role, Role... roles) {
+        this(id, name, email, password, EnumSet.of(role, roles));
+    }
+
+    public User(Integer id, String name, String email, String password, Collection<Role> roles) {
         super(id, name);
         this.email = email;
         this.password = password;
-        this.roles = roles;
+        setRoles(roles);
     }
 
     public String getEmail() {
@@ -55,7 +62,7 @@ public class User extends AbstractNamedEntity {
         return roles;
     }
 
-    public void setRoles(Set<Role> roles) {
-        this.roles = roles;
+    public void setRoles(Collection<Role> roles) {
+        this.roles = CollectionUtils.isEmpty(roles) ? Collections.emptySet() : EnumSet.copyOf(roles);
     }
 }

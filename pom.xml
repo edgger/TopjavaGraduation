@@ -17,17 +17,11 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
-        <!--  Spring  -->
         <spring.version>5.0.5.RELEASE</spring.version>
-
-        <!--  Hibernate    -->
         <hibernate.version>5.2.16.Final</hibernate.version>
-
-        <!--  Tests   -->
         <junit.version>4.12</junit.version>
-
-        <!--  Jackson  -->
         <jackson-json.version>2.9.5</jackson-json.version>
+        <tomcat.version>8.5.29</tomcat.version>
     </properties>
 
     <dependencies>
@@ -74,11 +68,31 @@
             <version>${jackson-json.version}</version>
         </dependency>
 
+        <!--test-->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>${junit.version}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-test</artifactId>
+            <version>${spring.version}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.assertj</groupId>
+            <artifactId>assertj-core</artifactId>
+            <version>3.9.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-servlet-api</artifactId>
+            <version>${tomcat.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

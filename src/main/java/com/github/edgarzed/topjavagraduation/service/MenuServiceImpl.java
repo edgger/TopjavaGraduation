@@ -44,7 +44,7 @@ public class MenuServiceImpl implements MenuService {
     public List<Menu> getFiltered(Integer restaurantId, LocalDate startDate, LocalDate endDate) {
         Restaurant restaurant = null;
         if (restaurantId!=null){
-            restaurant = restaurantService.get(restaurantId);
+            restaurant = restaurantService.getReference(restaurantId);
         }
         return menuDAO.getFiltered(restaurant, startDate, endDate);
     }

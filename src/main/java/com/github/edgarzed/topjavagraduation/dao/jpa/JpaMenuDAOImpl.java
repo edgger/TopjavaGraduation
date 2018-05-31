@@ -6,6 +6,7 @@ import com.github.edgarzed.topjavagraduation.model.Restaurant;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityGraph;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
@@ -15,7 +16,9 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Repository
 @Transactional(readOnly = true)
@@ -37,12 +40,15 @@ public class JpaMenuDAOImpl implements MenuDAO {
 
     @Override
     public Menu get(int id) {
-        return em.find(Menu.class, id);
+        EntityGraph graph = em.getEntityGraph("graph.Menu.mealsAndRestaurant");
+        Map<String, Object> hints = new HashMap<>();
+        hints.put("javax.persistence.fetchgraph", graph);
+        return em.find(Menu.class, id, hints);
     }
 
     @Override
     public List<Menu> getAll() {
-        Query query = em.createQuery("SELECT m FROM Menu m LEFT JOIN FETCH m.restaurant,m.meals ORDER BY m.restaurant.name", Menu.class);
+        Query query = em.createQuery("SELECT m FROM Menu m LEFT JOIN FETCH m.restaurant", Menu.class);
         return query.getResultList();
     }
 
@@ -58,6 +64,7 @@ public class JpaMenuDAOImpl implements MenuDAO {
         menuQuery.select(root);
         menuQuery.where(predicates.toArray(new Predicate[0]));
         menuQuery.orderBy(cb.desc(root.get("date")));
+        menuQuery.distinct(true);
         return em.createQuery(menuQuery).getResultList();
     }
 
@@ -65,7 +72,7 @@ public class JpaMenuDAOImpl implements MenuDAO {
         List<Predicate> predicates = new ArrayList<>();
 
         if (restaurant != null) {
-            predicates.add(cb.equal(root.get("user").get("id"), restaurant.getId()));
+            predicates.add(cb.equal(root.get("restaurant").get("id"), restaurant.getId()));
         }
 
         JpaUtil.getDatePredicates(cb, startDate, endDate, predicates, root.get("date"));

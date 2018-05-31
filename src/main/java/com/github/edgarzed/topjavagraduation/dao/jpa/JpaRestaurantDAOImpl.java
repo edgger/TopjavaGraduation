@@ -38,4 +38,9 @@ public class JpaRestaurantDAOImpl implements RestaurantDAO {
         Query query = em.createQuery("SELECT r FROM Restaurant r ORDER BY r.name", Restaurant.class);
         return query.getResultList();
     }
+
+    @Override
+    public Restaurant getReference(int id){
+        return em.getReference(Restaurant.class, id);
+    }
 }

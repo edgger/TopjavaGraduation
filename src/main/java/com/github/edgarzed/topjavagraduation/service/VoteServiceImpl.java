@@ -22,7 +22,7 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
-    public boolean save(User user, int restaurantId, LocalDate date) {
+    public Vote save(User user, int restaurantId, LocalDate date) {
         Restaurant restaurant = restaurantService.get(restaurantId);
         Vote vote;
         List<Vote> todaysUserVoice = getFiltered(user, date, date);
@@ -30,10 +30,9 @@ public class VoteServiceImpl implements VoteService {
             vote = todaysUserVoice.get(0);
             vote.setRestaurant(restaurant);
         } else {
-            vote = new Vote(user, restaurant, date);
+            vote = new Vote(null, user, restaurant, date);
         }
-        voteDAO.save(vote);
-        return false;
+        return voteDAO.save(vote);
     }
 
     @Override

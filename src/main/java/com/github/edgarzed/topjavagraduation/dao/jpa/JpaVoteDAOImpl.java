@@ -37,7 +37,7 @@ public class JpaVoteDAOImpl implements VoteDAO {
 
     @Override
     public List<Vote> getAll() {
-        Query query = em.createQuery("SELECT v FROM Vote v LEFT JOIN FETCH v.restaurant,v.user ORDER BY v.date DESC ", Vote.class);
+        Query query = em.createQuery("SELECT v FROM Vote v LEFT JOIN FETCH v.restaurant LEFT JOIN FETCH v.user LEFT JOIN FETCH v.user.roles ORDER BY v.date DESC, v.restaurant.name ", Vote.class);
         return query.getResultList();
     }
 
@@ -47,7 +47,7 @@ public class JpaVoteDAOImpl implements VoteDAO {
         CriteriaQuery<Vote> voteQuery = cb.createQuery(Vote.class);
         Root<Vote> root = voteQuery.from(Vote.class);
         root.fetch("restaurant");
-        root.fetch("user");
+        root.fetch("user").fetch("roles");
         List<Predicate> predicates = getPredicates(cb, root, user, startDate, endDate);
 
         voteQuery.select(root);

@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface VoteService {
 
-    boolean save(User user, int restaurantId, LocalDate date);
+    Vote save(User user, int restaurantId, LocalDate date);
 
     List<Vote> getAll();
 

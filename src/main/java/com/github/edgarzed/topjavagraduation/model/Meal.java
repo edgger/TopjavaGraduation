@@ -16,6 +16,12 @@ public class Meal extends AbstractNamedEntity{
     public Meal() {
     }
 
+    public Meal(Meal meal) {
+        super(null, meal.name);
+        this.price = meal.price;
+        this.menu = meal.menu;
+    }
+
     public Meal(Integer id, String name, long price, Menu menu) {
         super(id, name);
         this.price = price;
@@ -36,5 +42,24 @@ public class Meal extends AbstractNamedEntity{
 
     public void setMenu(Menu menu) {
         this.menu = menu;
+    }
+
+    /*@Override
+    public String toString() {
+        return "Meal{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }*/
+
+    @Override
+    public String toString() {
+        return "Meal{" +
+                "price=" + price +
+                ", menu=" + menu +
+                ", name='" + name + '\'' +
+                ", id=" + id +
+                '}';
     }
 }

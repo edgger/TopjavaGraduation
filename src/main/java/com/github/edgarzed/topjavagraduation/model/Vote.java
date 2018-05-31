@@ -21,7 +21,8 @@ public class Vote extends AbstractBaseEntity {
     public Vote() {
     }
 
-    public Vote(User user, Restaurant restaurant, LocalDate date) {
+    public Vote(Integer id, User user, Restaurant restaurant, LocalDate date) {
+        super(id);
         this.user = user;
         this.restaurant = restaurant;
         this.date = date;
@@ -49,5 +50,15 @@ public class Vote extends AbstractBaseEntity {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Vote{" +
+                "id=" + id +
+                ", user=" + user +
+                ", restaurant=" + restaurant +
+                ", date=" + date +
+                '}';
     }
 }

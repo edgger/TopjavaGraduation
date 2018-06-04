@@ -12,5 +12,5 @@ public interface VoteDAO {
 
     List<Vote> getAll();
 
-    List<Vote> getFiltered(User user, LocalDate startDate, LocalDate endDate);
+    List<Vote> getFiltered(User user, LocalDate startDate, LocalDate endDate, boolean full);
 }

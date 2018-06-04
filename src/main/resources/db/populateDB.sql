@@ -6,10 +6,10 @@ DELETE FROM menu;
 DELETE FROM restaurants;
 
 INSERT INTO users (NAME, EMAIL, PASSWORD) VALUES
-  ('Admin', 'admin@gmail.com', 'admin'),
-  ('UserAAA', 'userAAA@yandex.ru', 'password'),
-  ('UserBBB', 'userBBB@mail.ru', 'password'),
-  ('UserCCC', 'userCCC@gmail.com', 'password');
+  ('Admin', 'admin@gmail.com', '{noop}admin'),
+  ('UserAAA', 'useraaa@yandex.ru', '{noop}password'),
+  ('UserBBB', 'userbbb@mail.ru', '{noop}password'),
+  ('UserCCC', 'userccc@gmail.com', '{noop}password');
 
 INSERT INTO user_roles (ROLE, USER_ID) VALUES
   ('ROLE_ADMIN', 1000),

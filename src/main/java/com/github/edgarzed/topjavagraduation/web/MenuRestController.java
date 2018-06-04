@@ -3,6 +3,7 @@ package com.github.edgarzed.topjavagraduation.web;
 import com.github.edgarzed.topjavagraduation.model.Menu;
 import com.github.edgarzed.topjavagraduation.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -22,7 +23,8 @@ public class MenuRestController {
     MenuService menuService;
 
     @PostMapping(value = "/{restaurantId}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Menu> create(@PathVariable("restaurantId") int restaurantId, Menu menu) {
+    public ResponseEntity<Menu> create(@PathVariable("restaurantId") int restaurantId,
+                                       @RequestBody Menu menu) {
         if (menu.getRestaurant().getId() != restaurantId) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
@@ -30,7 +32,7 @@ public class MenuRestController {
         Menu created = menuService.create(menu);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
-                .path(REST_URL+"/menus/{id}")
+                .path(REST_URL + "/menus/{id}")
                 .buildAndExpand(created.getId()).toUri();
 
         return ResponseEntity.created(uriOfNewResource).body(created);
@@ -42,8 +44,8 @@ public class MenuRestController {
     }
 
     @GetMapping(value = "/menus", produces = MediaType.APPLICATION_JSON_VALUE)
-    public List<Menu> getBetween(@RequestParam(value = "startDate", required = false) LocalDate startDate,
-                                 @RequestParam(value = "endDate", required = false) LocalDate endDate) {
+    public List<Menu> getBetween(@RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                 @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         if (startDate == null && endDate == null) {
             return menuService.getAll();
         } else {
@@ -53,8 +55,8 @@ public class MenuRestController {
 
     @GetMapping(value = "/{restaurantId}/menus", produces = MediaType.APPLICATION_JSON_VALUE)
     public List<Menu> getBetweenByRestaurant(@PathVariable("restaurantId") int restaurantId,
-                                             @RequestParam(value = "startDate", required = false) LocalDate startDate,
-                                             @RequestParam(value = "endDate", required = false) LocalDate endDate) {
+                                             @RequestParam(value = "startDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
+                                             @RequestParam(value = "endDate", required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate) {
         return menuService.getFiltered(restaurantId, startDate, endDate);
     }
 
@@ -66,7 +68,7 @@ public class MenuRestController {
     @GetMapping(value = "/{restaurantId}/menus/todays", produces = MediaType.APPLICATION_JSON_VALUE)
     public Menu getTodaysByRestaurant(@PathVariable("restaurantId") int restaurantId) {
         List<Menu> menus = menuService.getFiltered(restaurantId, LocalDate.now(), LocalDate.now());
-        if (menus.size()>0){
+        if (menus.size() > 0) {
             return menus.get(0);
         } else {
             return null;

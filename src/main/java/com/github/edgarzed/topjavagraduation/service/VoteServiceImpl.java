@@ -6,6 +6,7 @@ import com.github.edgarzed.topjavagraduation.model.User;
 import com.github.edgarzed.topjavagraduation.model.Vote;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -22,10 +23,11 @@ public class VoteServiceImpl implements VoteService {
     }
 
     @Override
+    @Transactional
     public Vote save(User user, int restaurantId, LocalDate date) {
         Restaurant restaurant = restaurantService.get(restaurantId);
         Vote vote;
-        List<Vote> todaysUserVoice = getFiltered(user, date, date);
+        List<Vote> todaysUserVoice = voteDAO.getFiltered(user, date, date, false);
         if (todaysUserVoice.size() > 0) {
             vote = todaysUserVoice.get(0);
             vote.setRestaurant(restaurant);
@@ -42,6 +44,6 @@ public class VoteServiceImpl implements VoteService {
 
     @Override
     public List<Vote> getFiltered(User user, LocalDate startDate, LocalDate endDate) {
-        return voteDAO.getFiltered(user, startDate, endDate);
+        return voteDAO.getFiltered(user, startDate, endDate, true);
     }
 }

@@ -11,6 +11,4 @@ public interface RestaurantService {
     Restaurant get(int id);
 
     List<Restaurant> getAll();
-
-    Restaurant getReference(int id);
 }

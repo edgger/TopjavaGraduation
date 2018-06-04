@@ -52,6 +52,13 @@ public class JpaUserRepositoryImpl implements UserDAO {
     }
 
     @Override
+    public User getByEmail(String email) {
+        return em.createQuery("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=:email", User.class)
+                .setParameter("email", email)
+                .getSingleResult();
+    }
+
+    @Override
     public List<User> getAll() {
         Query query = em.createQuery("SELECT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name");
         return query.getResultList();

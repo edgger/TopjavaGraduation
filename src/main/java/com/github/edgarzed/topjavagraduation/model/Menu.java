@@ -1,5 +1,7 @@
 package com.github.edgarzed.topjavagraduation.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ public class Menu extends AbstractBaseEntity{
     private LocalDate date;
 
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "menu")
+    @JsonManagedReference
     private List<Meal> meals;
 
     public Menu() {
@@ -27,19 +30,16 @@ public class Menu extends AbstractBaseEntity{
         super(null);
         this.restaurant = menu.restaurant;
         this.date = menu.date;
+        this.meals = new ArrayList<>();
 
-        List<Meal> meals = menu.getMeals();
-        List<Meal> newMeals = new ArrayList<>();
-        meals.forEach(meal -> newMeals.add(new Meal(meal)));
-
-        this.meals = newMeals;
+        menu.getMeals().forEach(meal -> this.addMeal(new Meal(meal)));
     }
 
-    public Menu(Integer id, Restaurant restaurant, LocalDate date, List<Meal> meals) {
+    public Menu(Integer id, Restaurant restaurant, LocalDate date) {
         super(id);
         this.restaurant = restaurant;
         this.date = date;
-        this.meals = meals;
+        this.meals = new ArrayList<>();
     }
 
     public Restaurant getRestaurant() {
@@ -62,8 +62,9 @@ public class Menu extends AbstractBaseEntity{
         return meals;
     }
 
-    public void setMeals(List<Meal> meals) {
-        this.meals = meals;
+    public void addMeal(Meal meal) {
+        this.meals.add(meal);
+        meal.setMenu(this);
     }
 
     @Override

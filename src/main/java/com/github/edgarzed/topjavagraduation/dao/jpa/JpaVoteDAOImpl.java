@@ -42,12 +42,14 @@ public class JpaVoteDAOImpl implements VoteDAO {
     }
 
     @Override
-    public List<Vote> getFiltered(User user, LocalDate startDate, LocalDate endDate) {
+    public List<Vote> getFiltered(User user, LocalDate startDate, LocalDate endDate, boolean full) {
         CriteriaBuilder cb = em.getCriteriaBuilder();
         CriteriaQuery<Vote> voteQuery = cb.createQuery(Vote.class);
         Root<Vote> root = voteQuery.from(Vote.class);
-        root.fetch("restaurant");
-        root.fetch("user").fetch("roles");
+        if (full){
+            root.fetch("restaurant");
+            root.fetch("user").fetch("roles");
+        }
         List<Predicate> predicates = getPredicates(cb, root, user, startDate, endDate);
 
         voteQuery.select(root);

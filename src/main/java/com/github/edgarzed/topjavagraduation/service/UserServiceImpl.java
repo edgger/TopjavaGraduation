@@ -12,6 +12,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
+import static com.github.edgarzed.topjavagraduation.util.ValidationUtil.checkNotFound;
 import static com.github.edgarzed.topjavagraduation.util.ValidationUtil.checkNotFoundWithId;
 
 
@@ -42,6 +43,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
     }
 
     @Override
+    public User getByEmail(String email) throws NotFoundException {
+        Assert.notNull(email, "email must not be null");
+        return checkNotFound(repository.getByEmail(email), "email=" + email);
+    }
+
+    @Override
     public List<User> getAll() {
         return repository.getAll();
     }
@@ -52,9 +59,12 @@ public class UserServiceImpl implements UserService, UserDetailsService {
         checkNotFoundWithId(repository.save(user), user.getId());
     }
 
-    //TODO: Security loadUserByUsername
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
-        return null;
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        User user = repository.getByEmail(email.toLowerCase());
+        if (user == null) {
+            throw new UsernameNotFoundException("User " + email + " is not found");
+        }
+        return user;
     }
 }

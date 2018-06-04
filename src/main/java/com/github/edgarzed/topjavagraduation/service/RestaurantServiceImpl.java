@@ -30,9 +30,4 @@ public class RestaurantServiceImpl implements RestaurantService {
     public List<Restaurant> getAll() {
         return restaurantDAO.getAll();
     }
-
-    @Override
-    public Restaurant getReference(int id){
-        return restaurantDAO.getReference(id);
-    }
 }

@@ -13,5 +13,7 @@ public interface UserDAO {
     // null if not found
     User get(int id);
 
+    User getByEmail(String email);
+
     List<User> getAll();
 }

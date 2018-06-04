@@ -4,9 +4,9 @@ import com.github.edgarzed.topjavagraduation.model.Meal;
 import com.github.edgarzed.topjavagraduation.model.Menu;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Stream;
 
 import static com.github.edgarzed.topjavagraduation.RestaurantTestData.*;
 
@@ -14,28 +14,21 @@ public class MenuTestData {
     private MenuTestData() {
     }
 
-    public static final List<Meal> MEALS1 = new ArrayList<>();
-    public static final List<Meal> MEALS2 = new ArrayList<>();
-    public static final List<Meal> MEALS3 = new ArrayList<>();
-    public static final List<Meal> MEALS4 = new ArrayList<>();
-    public static final List<Meal> MEALS5 = new ArrayList<>();
-    public static final List<Meal> MEALS6 = new ArrayList<>();
+    public static final Menu MENU1 = new Menu(1000, RESTAURANT1, LocalDate.of(2018, 4, 22));
+    public static final Menu MENU2 = new Menu(1001, RESTAURANT2, LocalDate.of(2018, 4, 22));
+    public static final Menu MENU3 = new Menu(1002, RESTAURANT3, LocalDate.of(2018, 4, 22));
+    public static final Menu MENU4 = new Menu(1003, RESTAURANT1, LocalDate.of(2018, 4, 23));
+    public static final Menu MENU5 = new Menu(1004, RESTAURANT2, LocalDate.of(2018, 4, 23));
+    public static final Menu MENU6 = new Menu(1005, RESTAURANT3, LocalDate.of(2018, 4, 23));
 
-    public static final List<Meal> MEALSTODAY1 = new ArrayList<>();
-    public static final List<Meal> MEALSTODAY2 = new ArrayList<>();
+    public static final Menu MENUTODAY1 = new Menu(null, RESTAURANT1, LocalDate.now());
+    public static final Menu MENUTODAY2 = new Menu(null, RESTAURANT3, LocalDate.now());
+    public static final Menu MENUTODAY3 = new Menu(null, RESTAURANT2, LocalDate.now());
 
-    public static final Menu MENU1 = new Menu(1000, RESTAURANT1, LocalDate.of(2018, 4, 22), MEALS1);
-    public static final Menu MENU2 = new Menu(1001, RESTAURANT2, LocalDate.of(2018, 4, 22), MEALS2);
-    public static final Menu MENU3 = new Menu(1002, RESTAURANT3, LocalDate.of(2018, 4, 22), MEALS3);
-    public static final Menu MENU4 = new Menu(1003, RESTAURANT1, LocalDate.of(2018, 4, 23), MEALS4);
-    public static final Menu MENU5 = new Menu(1004, RESTAURANT2, LocalDate.of(2018, 4, 23), MEALS5);
-    public static final Menu MENU6 = new Menu(1005, RESTAURANT3, LocalDate.of(2018, 4, 23), MEALS6);
-
-    public static final Menu MENUTODAY1 = new Menu(null, RESTAURANT1, LocalDate.now(), MEALSTODAY1);
-    public static final Menu MENUTODAY2 = new Menu(null, RESTAURANT3, LocalDate.now(), MEALSTODAY2);
+    public static final Menu NEWMENU = new Menu(null, RESTAURANT2, LocalDate.now().minusDays(1));
 
     public static final List<Menu> MENUS = Arrays.asList(MENU1, MENU2, MENU3, MENU4, MENU5, MENU6);
-    public static final List<Menu> MENUTODAYS = Arrays.asList(MENUTODAY1, MENUTODAY2);
+    public static final List<Menu> MENUTODAYS = Arrays.asList(MENUTODAY1, MENUTODAY2, MENUTODAY3);
 
     private static final Meal MEAL1 = new Meal(1000, "Dish1 r1 22", 15000, MENU1);
     private static final Meal MEAL2 = new Meal(1001, "Dish2 r1 22", 20000, MENU1);
@@ -59,16 +52,24 @@ public class MenuTestData {
     private static final Meal MEALTODAY3 = new Meal(null, "Dish3 r1 now", 1200, MENUTODAY1);
     private static final Meal MEALTODAY4 = new Meal(null, "Dish1 r3 now", 7000, MENUTODAY2);
     private static final Meal MEALTODAY5 = new Meal(null, "Dish2 r3 now", 3000, MENUTODAY2);
+    private static final Meal MEALTODAY6 = new Meal(null, "Dish1 r3 now", 7000, MENUTODAY3);
+    private static final Meal MEALTODAY7 = new Meal(null, "Dish2 r3 now", 3000, MENUTODAY3);
 
+    private static final Meal NEWMEAL1 = new Meal(null, "Dish1 r2 now-1", 100, NEWMENU);
+    private static final Meal NEWMEAL2 = new Meal(null, "Dish2 r2 now-1", 200, NEWMENU);
 
     static {
-        MEALS1.addAll(Arrays.asList(MEAL1, MEAL2, MEAL3));
-        MEALS2.addAll(Arrays.asList(MEAL4, MEAL5, MEAL6));
-        MEALS3.addAll(Arrays.asList(MEAL7, MEAL8, MEAL9));
-        MEALS4.addAll(Arrays.asList(MEAL10, MEAL11, MEAL12));
-        MEALS5.add(MEAL13);
-        MEALS6.addAll(Arrays.asList(MEAL14, MEAL15, MEAL16));
-        MEALSTODAY1.addAll(Arrays.asList(MEALTODAY1, MEALTODAY2, MEALTODAY3));
-        MEALSTODAY2.addAll(Arrays.asList(MEALTODAY4, MEALTODAY5));
+        Stream.of(MEAL1, MEAL2, MEAL3).forEach(MENU1::addMeal);
+        Stream.of(MEAL4, MEAL5, MEAL6).forEach(MENU2::addMeal);
+        Stream.of(MEAL7, MEAL8, MEAL9).forEach(MENU3::addMeal);
+        Stream.of(MEAL10, MEAL11, MEAL12).forEach(MENU4::addMeal);
+        Stream.of(MEAL13).forEach(MENU5::addMeal);
+        Stream.of(MEAL14, MEAL15, MEAL16).forEach(MENU6::addMeal);
+
+        Stream.of(MEALTODAY1, MEALTODAY2, MEALTODAY3).forEach(MENUTODAY1::addMeal);
+        Stream.of(MEALTODAY4, MEALTODAY5).forEach(MENUTODAY2::addMeal);
+        Stream.of(MEALTODAY6, MEALTODAY7).forEach(MENUTODAY3::addMeal);
+
+        Stream.of(NEWMEAL1, NEWMEAL2).forEach(NEWMENU::addMeal);
     }
 }

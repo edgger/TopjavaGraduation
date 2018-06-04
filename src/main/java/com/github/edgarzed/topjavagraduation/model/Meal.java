@@ -1,5 +1,7 @@
 package com.github.edgarzed.topjavagraduation.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -11,6 +13,7 @@ public class Meal extends AbstractNamedEntity{
 
     @JoinColumn(name = "menu_id", nullable = false)
     @ManyToOne(fetch = FetchType.LAZY)
+    @JsonBackReference
     private Menu menu;
 
     public Meal() {
@@ -44,22 +47,12 @@ public class Meal extends AbstractNamedEntity{
         this.menu = menu;
     }
 
-    /*@Override
+    @Override
     public String toString() {
         return "Meal{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                '}';
-    }*/
-
-    @Override
-    public String toString() {
-        return "Meal{" +
-                "price=" + price +
-                ", menu=" + menu +
-                ", name='" + name + '\'' +
-                ", id=" + id +
                 '}';
     }
 }

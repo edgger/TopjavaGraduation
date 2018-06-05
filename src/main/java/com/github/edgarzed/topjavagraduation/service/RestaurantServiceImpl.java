@@ -3,6 +3,8 @@ package com.github.edgarzed.topjavagraduation.service;
 import com.github.edgarzed.topjavagraduation.dao.RestaurantDAO;
 import com.github.edgarzed.topjavagraduation.model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public class RestaurantServiceImpl implements RestaurantService {
         this.restaurantDAO = restaurantDAO;
     }
 
+    @CacheEvict(value = "restaurants", allEntries = true)
     @Override
     public Restaurant create(Restaurant restaurant) {
         return restaurantDAO.save(restaurant);
@@ -25,7 +28,8 @@ public class RestaurantServiceImpl implements RestaurantService {
     public Restaurant get(int id) {
         return restaurantDAO.get(id);
     }
-    //TODO: restaurantCache
+
+    @Cacheable("restaurants")
     @Override
     public List<Restaurant> getAll() {
         return restaurantDAO.getAll();

@@ -4,6 +4,8 @@ import com.github.edgarzed.topjavagraduation.dao.MenuDAO;
 import com.github.edgarzed.topjavagraduation.model.Menu;
 import com.github.edgarzed.topjavagraduation.model.Restaurant;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -20,6 +22,7 @@ public class MenuServiceImpl implements MenuService {
         this.restaurantService = restaurantService;
     }
 
+    @CacheEvict(value = "menus", allEntries = true)
     @Override
     public Menu create(Menu menu) {
         return menuDAO.save(menu);
@@ -29,12 +32,14 @@ public class MenuServiceImpl implements MenuService {
     public Menu get(int id) {
         return menuDAO.get(id);
     }
-    //TODO: menuCache
+
+    @Cacheable("menus")
     @Override
     public List<Menu> getAll() {
         return menuDAO.getAll();
     }
-    //TODO: menuCache
+
+    @Cacheable("menus")
     @Override
     public List<Menu> getAllTodays() {
         return menuDAO.getFiltered(null, LocalDate.now(), LocalDate.now());

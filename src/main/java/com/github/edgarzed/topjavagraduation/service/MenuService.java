@@ -13,7 +13,6 @@ public interface MenuService {
 
     List<Menu> getAll();
 
-    //TODO: cache
     List<Menu> getAllTodays();
 
     List<Menu> getFiltered(Integer restaurantId, LocalDate startDate, LocalDate endDate);

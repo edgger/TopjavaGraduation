@@ -2,6 +2,7 @@ package com.github.edgarzed.topjavagraduation.web;
 
 import com.github.edgarzed.topjavagraduation.model.Menu;
 import com.github.edgarzed.topjavagraduation.service.MenuService;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -25,6 +26,11 @@ public class MenuRestControllerTest extends AbstractControllerTest {
 
     @Autowired
     MenuService menuService;
+
+    @Before
+    public void setUp() {
+        cacheManager.getCache("menus").clear();
+    }
 
     @Test
     public void testCreate() throws Exception {

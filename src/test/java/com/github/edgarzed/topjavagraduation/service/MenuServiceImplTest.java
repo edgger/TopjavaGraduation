@@ -1,6 +1,7 @@
 package com.github.edgarzed.topjavagraduation.service;
 
 import com.github.edgarzed.topjavagraduation.model.Menu;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -16,6 +17,11 @@ public class MenuServiceImplTest extends AbstractServiceTest {
 
     @Autowired
     private MenuService menuService;
+
+    @Before
+    public void setUp() {
+        cacheManager.getCache("menus").clear();
+    }
 
     @Test
     public void create() {

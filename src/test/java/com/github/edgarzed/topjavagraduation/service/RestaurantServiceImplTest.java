@@ -2,6 +2,7 @@ package com.github.edgarzed.topjavagraduation.service;
 
 import com.github.edgarzed.topjavagraduation.RestaurantTestData;
 import com.github.edgarzed.topjavagraduation.model.Restaurant;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -11,6 +12,11 @@ public class RestaurantServiceImplTest extends AbstractServiceTest{
 
     @Autowired
     RestaurantService restaurantService;
+
+    @Before
+    public void setUp() {
+        cacheManager.getCache("restaurants").clear();
+    }
 
     @Test
     public void create() {

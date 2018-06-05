@@ -2,6 +2,7 @@ package com.github.edgarzed.topjavagraduation.web;
 
 import com.github.edgarzed.topjavagraduation.RestaurantTestData;
 import com.github.edgarzed.topjavagraduation.model.Restaurant;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.http.MediaType;
 
@@ -13,6 +14,11 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class RestaurantRestControllerTest extends AbstractControllerTest {
+
+    @Before
+    public void setUp() {
+        cacheManager.getCache("restaurants").clear();
+    }
 
     @Test
     public void testCreate() throws Exception {

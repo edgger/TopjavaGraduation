@@ -1,4 +1,4 @@
-####Task:
+### Task:
 Design and implement a REST API using Hibernate/Spring/SpringMVC (or Spring-Boot) **without frontend**.
 
 The task is:
@@ -16,7 +16,7 @@ Build a voting system for deciding where to have lunch.
 
 Each restaurant provides new menu each day.
 
-####CURL Samples:
+### CURL Samples:
 > For windows use `Git Bash`
 ##### get All Restaurants
 `curl -s http://localhost:8080/rest/restaurants --user userccc@gmail.com:password`

@@ -1,4 +1,4 @@
-package com.github.edgarzed.topjavagraduation.web;
+package com.github.edgarzed.topjavagraduation.web.rest;
 
 import com.github.edgarzed.topjavagraduation.model.Menu;
 import com.github.edgarzed.topjavagraduation.service.MenuService;
@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.Collections;
 
 import static com.github.edgarzed.topjavagraduation.MenuTestData.*;
-import static com.github.edgarzed.topjavagraduation.RestaurantTestData.RESTAURANT1;
 import static com.github.edgarzed.topjavagraduation.RestaurantTestData.RESTAURANT2;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -87,19 +86,6 @@ public class MenuRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(content().json(objectMapper.writeValueAsString(MENUTODAYS)))
-                .andDo(print());
-    }
-
-    @Test
-    @Transactional(propagation = Propagation.NEVER)
-    public void testGetTodaysByRestaurant() throws Exception {
-
-        Menu todaysMenuRestaurant1 = menuService.create(MENUTODAY1);
-
-        mockMvc.perform(get(MenuRestController.REST_URL + "/" + RESTAURANT1.getId() + "/menus/todays"))
-                .andExpect(status().isOk())
-                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(content().json(objectMapper.writeValueAsString(todaysMenuRestaurant1)))
                 .andDo(print());
     }
 }

@@ -48,7 +48,7 @@ public class JpaMenuDAOImpl implements MenuDAO {
 
     @Override
     public List<Menu> getAll() {
-        Query query = em.createQuery("SELECT m FROM Menu m LEFT JOIN FETCH m.restaurant", Menu.class);
+        Query query = em.createQuery("SELECT DISTINCT m FROM Menu m LEFT JOIN FETCH m.restaurant LEFT JOIN FETCH m.meals", Menu.class);
         return query.getResultList();
     }
 

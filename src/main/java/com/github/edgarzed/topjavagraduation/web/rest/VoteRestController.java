@@ -1,4 +1,4 @@
-package com.github.edgarzed.topjavagraduation.web;
+package com.github.edgarzed.topjavagraduation.web.rest;
 
 import com.github.edgarzed.topjavagraduation.model.User;
 import com.github.edgarzed.topjavagraduation.model.Vote;

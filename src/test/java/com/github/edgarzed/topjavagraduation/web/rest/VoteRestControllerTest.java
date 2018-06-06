@@ -1,4 +1,4 @@
-package com.github.edgarzed.topjavagraduation.web;
+package com.github.edgarzed.topjavagraduation.web.rest;
 
 import com.github.edgarzed.topjavagraduation.RestaurantTestData;
 import org.junit.Test;

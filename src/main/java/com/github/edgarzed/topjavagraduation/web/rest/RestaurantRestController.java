@@ -1,8 +1,9 @@
-package com.github.edgarzed.topjavagraduation.web;
+package com.github.edgarzed.topjavagraduation.web.rest;
 
 import com.github.edgarzed.topjavagraduation.model.Restaurant;
 import com.github.edgarzed.topjavagraduation.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -21,6 +22,9 @@ public class RestaurantRestController {
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Restaurant> create(@RequestBody Restaurant restaurant){
+        if (!restaurant.isNew()){
+            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        }
         Restaurant created = restaurantService.create(restaurant);
 
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()

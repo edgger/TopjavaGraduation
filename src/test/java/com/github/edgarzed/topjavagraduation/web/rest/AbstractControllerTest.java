@@ -1,4 +1,4 @@
-package com.github.edgarzed.topjavagraduation.web;
+package com.github.edgarzed.topjavagraduation.web.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.runner.RunWith;

@@ -1,6 +1,7 @@
-package com.github.edgarzed.topjavagraduation.web;
+package com.github.edgarzed.topjavagraduation.web.rest;
 
 import com.github.edgarzed.topjavagraduation.model.Menu;
+import com.github.edgarzed.topjavagraduation.model.Restaurant;
 import com.github.edgarzed.topjavagraduation.service.MenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -25,9 +26,11 @@ public class MenuRestController {
     @PostMapping(value = "/{restaurantId}/menus", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Menu> create(@PathVariable("restaurantId") int restaurantId,
                                        @RequestBody Menu menu) {
-        if (menu.getRestaurant().getId() != restaurantId) {
+        Restaurant menuRestaurant = menu.getRestaurant();
+        if (menuRestaurant == null || menuRestaurant.getId() != restaurantId) {
             return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
         }
+        menu.getMeals().forEach(meal -> meal.setId(null));
 
         Menu created = menuService.create(menu);
 

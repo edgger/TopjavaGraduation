@@ -20,7 +20,7 @@
         <spring.version>5.0.5.RELEASE</spring.version>
         <hibernate.version>5.2.16.Final</hibernate.version>
         <junit.version>4.12</junit.version>
-        <jackson-json.version>2.9.5</jackson-json.version>
+        <jackson-json.version>2.12.1</jackson-json.version>
         <tomcat.version>8.5.29</tomcat.version>
         <jsonassert.version>1.5.0</jsonassert.version>
     </properties>
